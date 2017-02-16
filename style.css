@@ -1,1 +1,26 @@
 /* Grid stylesheet */
+h1 {
+  font-family: cursive;
+  font-size: 30px;
+  color: darkblue;
+  text-align: center;
+  margin: 5px auto 5px auto;
+}
+
+.header {
+  border: 1px solid grey;
+  border-radius: 3px;
+  width: 640px;
+  height: 34px;
+  margin: 0 auto 3px auto;
+  padding: 2px 5px 2px 5px;
+}
+
+.grid {
+  border: 1px solid grey;
+  border-radius: 3px;
+  width: 640px;
+  height: 640px;
+  margin: 0 auto 5px auto;
+  padding: 5px;
+}
