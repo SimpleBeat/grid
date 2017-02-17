@@ -1,40 +1,73 @@
 // Grid JavaScript (requires jQuery)
 
 $(document).ready(function(){
-  var gridWidth=$(".grid").width();
-  var cellsInRow=64;
 
-  makeAGrid(cellsInRow);
+  var currentColorChoice = false;
+  var colorTable = ['blue', 'yellow', 'red', 'orange', 'green', 'brown', 'silver'];
+  var colorNow = 0;
+  var gridSize = 32;
+
+  makeAGrid();
+
+  $('#smallGrid').on('click', function(){
+    gridSize=16;
+    makeAGrid();
+  });
+  $('#mediumGrid').on('click', function(){
+    gridSize=32;
+    makeAGrid();
+  });
+  $('#largeGrid').on('click', function(){
+    gridSize=64;
+    makeAGrid();
+  });
+
+  $('#bw').on('click', function(){
+    currentColorChoice = false;
+  });
+
+  $('#randomColor').on('click', function(){
+    currentColorChoice = true;
+  });
+
+  function makeAGrid() {
+    $('.grid').fadeOut('fast');
+    $('.grid').find('div').remove();
+
+    for (var i=0; i<gridSize*gridSize; i++) {
+      $('.grid').append('<div></div>');
+    }
+    $('.grid').find('div').addClass("cell");
+
+    switch(gridSize) {
+      case 16: {
+        $('.grid').find('div').css({'width': '40px', 'height': '40px'});
+        break;
+      }
+      case 64: {
+        $('.grid').find('div').css({'width': '10px', 'height': '10px'});
+        break;
+      }
+      default: {
+        $('.grid').find('div').css({'width': '20px', 'height': '20px'});
+        break;
+      }
+    }
+
+    $(".cell").on('mouseenter', function(){
+      if (currentColorChoice) {
+        var cssColor = colorTable[colorNow];
+        $(this).css("background-color", cssColor);
+        colorNow++;
+        if (colorNow === colorTable.length) {
+          colorNow = 0;
+        }
+      } else {
+        $(this).css("background-color", "black");
+      }
+    });
+
+    $('.grid').fadeIn('fast');
+  }
 
 });
-
-function makeAGrid(cells) {
-  var dta1='<div class="cellRow"></div>';
-  var dta2='<div class="cell"></div>';
-
-  for (var i=0; i<cells; i++) {
-    $('.grid').append(dta1);
-  }
-  for (var j=0; j<cells; j++) {
-    $('.grid').find('.cellRow').append(dta2);
-  }
-
-  switch (cells) {
-    case 64: {
-      $('.cell').css({'width': '9px', 'height': '9px'});
-      $('.cellRow').css({'height': '9px'});
-      break;
-    }
-    case 32: {
-      $('.cell').css("width", "20px");
-      $('.cell').css("height", "20px");
-      $('.cellRow').css("height", "20px");
-      break;
-    }
-    default: {
-      $('.cell').css({'width': '40px', 'height': '40px'});
-    }
-  }
-
-
-};
