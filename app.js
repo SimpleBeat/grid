@@ -23,33 +23,45 @@ $(document).ready(function(){
   });
 
   $('#bw').on('click', function(){
+    $(this).css({'text-decoration': 'underline'});
+    $('#randomColor').css({'text-decoration': 'none'});
     currentColorChoice = false;
   });
 
   $('#randomColor').on('click', function(){
+    $(this).css({'text-decoration': 'underline'});
+    $('#bw').css({'text-decoration': 'none'});
     currentColorChoice = true;
   });
 
   function makeAGrid() {
-    $('.grid').fadeOut('fast');
-    $('.grid').find('div').remove();
+    var grid=$('.grid');
+
+    grid.fadeOut('fast');
+
+    $('#bw').css({'text-decoration': 'underline'});
+    $('#randomColor').css({'text-decoration': 'none'});
+    currentColorChoice=false;
+
+    grid.find('div').remove();
 
     for (var i=0; i<gridSize*gridSize; i++) {
-      $('.grid').append('<div></div>');
+      grid.append('<div></div>');
     }
-    $('.grid').find('div').addClass("cell");
+    grid = grid.find('div');
+    grid.addClass("cell");
 
     switch(gridSize) {
       case 16: {
-        $('.grid').find('div').css({'width': '40px', 'height': '40px'});
+        grid.css({'width': '40px', 'height': '40px'});
         break;
       }
       case 64: {
-        $('.grid').find('div').css({'width': '10px', 'height': '10px'});
+        grid.css({'width': '10px', 'height': '10px'});
         break;
       }
       default: {
-        $('.grid').find('div').css({'width': '20px', 'height': '20px'});
+        grid.css({'width': '20px', 'height': '20px'});
         break;
       }
     }
